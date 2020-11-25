@@ -1,10 +1,10 @@
-name: TestPyPi
+name: PyPi
 
 on: push
 
 jobs:
   build-n-publish:
-    name: Publish to Test PyPi
+    name: Publish to PyPi
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
@@ -26,12 +26,12 @@ jobs:
         --outdir dist/
         .
     - name: Push to Test PyPi
-      uses: pypa/gh-action-pypi-publish@main
+      uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.test_pypi_password }}
         repository_url: https://test.pypi.org/legacy/
     - name: Push to PyPi
       if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@main
+      uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.pypi_password }}
