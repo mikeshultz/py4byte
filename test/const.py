@@ -1,3 +1,4 @@
+# flake8: noqa
 SWAP_TRANSACTION = {
     'blockHash': '0x3f43cba31e73252412c88d42f80b64e3c81ed99a1ef3743d14c891ed0ef54ab3',
     'blockNumber': 11325697,

@@ -1,4 +1,3 @@
-import sys
 import py4byte
 
 from pathlib import Path

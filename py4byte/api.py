@@ -4,13 +4,16 @@ Ref: https://www.4byte.directory/docs/
 """
 import requests
 
+
 def url(endpoint):
     return 'https://www.4byte.directory/api/v1/{}/'.format(endpoint)
+
 
 def get(endpoint, page=0, params={}):
     params['page'] = page
     # TODO: will probably want to be more defensive and add error handling
     return requests.get(url(endpoint), params=params).json()
+
 
 def get_all(endpoint, params):
     page = 1
@@ -20,13 +23,14 @@ def get_all(endpoint, params):
         res = get(endpoint, page, params)
         next_url = res.get('next')
         results.extend(res.get('results', []))
-        
+
         if not next_url:
             break
-        
+
         page += 1
 
     return results
+
 
 def signatures(**kwargs):
     """
