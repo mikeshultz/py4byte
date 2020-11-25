@@ -1,10 +1,8 @@
 import sys
-import shutil
 import py4byte
 
 from pathlib import Path
-from setuptools import Command, setup, find_packages
-from subprocess import check_call, CalledProcessError
+from setuptools import setup, find_packages
 
 this_dir = Path(__file__).parent.absolute()
 
@@ -40,11 +38,6 @@ setup(
     keywords='ethereum blockchain topic function event signature 4byte',
     packages=find_packages(exclude=['docs', 'build']),
     install_requires=requirements_to_list('requirements.txt'),
-    # entry_points={
-    #     'console_scripts': [
-    #         'py4byte=py4byte.cli:main',
-    #     ],
-    # },
     package_data={
         '': [
             'README.md',

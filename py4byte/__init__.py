@@ -1,11 +1,16 @@
-__version__="0.1.0"
-__author__="Mike Shultz"
-__email__="shultzm@gmail.com"
-
 from .api import signatures
 
+__version__ = "0.1.0"
+__author__ = "Mike Shultz"
+__email__ = "shultzm@gmail.com"
+
+
 def receipt_events(receipt):
-    """ Resolve events in a receipt """
+    """ Resolve events in a receipt
+
+    Returns list of tuples of [(hex_signature, text_signature)]
+    """
+
     if not receipt['logs']:
         return []
 
@@ -14,10 +19,25 @@ def receipt_events(receipt):
     for hex_sig in [log['topics'][0][0:10] for log in receipt['logs']]:
         res = signatures(hex_signature=hex_sig)
         if res:
-            event_signatures.append(res)
+            for match in res:
+                event_signatures.append((hex_sig, match.get('text_signature')))
+        else:
+            # Include the ones we don't know bout
+            event_signatures.append((hex_sig, None))
 
     return event_signatures
 
+
 def transaction_call(transaction):
-    """ Get the function signature for a transaction """
-    pass
+    """ Get the function signature for a transaction
+
+    Returns a list of text signatures matching the function signature
+    """
+    tx_input = transaction.get('input')
+
+    if not tx_input or len(tx_input) < 10:
+        return None
+
+    hex_sig = tx_input[0:10]
+
+    return [x.get('text_signature') for x in signatures(hex_signature=hex_sig)]
