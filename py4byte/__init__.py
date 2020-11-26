@@ -1,8 +1,5 @@
 from .api import signatures
-
-__version__ = "0.1.0"
-__author__ = "Mike Shultz"
-__email__ = "shultzm@gmail.com"
+from .meta import __version__, __author__, __email__
 
 
 def receipt_events(receipt):

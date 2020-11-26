@@ -1,9 +1,10 @@
-import py4byte
-
+import re
 from pathlib import Path
 from setuptools import setup, find_packages
 
 this_dir = Path(__file__).parent.absolute()
+meta_py = open('py4byte/meta.py').read()
+metadata = dict(re.findall("__([a-z]+)__ = \"([^\"]+)\"", meta_py))
 
 # Get the long description from the README file
 with this_dir.joinpath('README.md').open(encoding='utf-8') as f:
@@ -15,16 +16,15 @@ def requirements_to_list(filename):
         dep and not dep.startswith('#')
     )]
 
-
 setup(
     name='py4byte',
-    version=py4byte.__version__,
+    version=metadata['version'],
     description='Python library that leverages the 4byte.directory',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/mikeshultz/py4byte',
-    author=py4byte.__author__,
-    author_email=py4byte.__email__,
+    author=metadata['author'],
+    author_email=metadata['email'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
@@ -35,7 +35,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     keywords='ethereum blockchain topic function event signature 4byte',
-    packages=find_packages(exclude=['docs', 'build']),
+    packages=find_packages(exclude=['docs', 'build', 'test', 'dist']),
     install_requires=requirements_to_list('requirements.txt'),
     package_data={
         '': [
