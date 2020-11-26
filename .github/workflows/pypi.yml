@@ -1,11 +1,14 @@
 name: PyPi
 
 on:
-  workflow_run:
-    workflows: ["pytest"]
-    branches: [main]
-    types:
-      - completed
+  push:
+    tags: ['*']
+  # Won't work with the above, it'll be and/or
+  # workflow_run:
+  #   workflows: ["pytest"]
+  #   branches: [main]
+  #   types:
+  #     - completed
 
 jobs:
   build-n-publish:
