@@ -1,6 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-
-name: pytest
+name: main
 
 on:
   push:
@@ -9,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test-n-lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -61,6 +59,8 @@ jobs:
         --wheel
         --outdir dist/
         .
+    - name: Output ref
+      run: echo ${{ github.ref }}
     - name: Check for beta tag
       id: check-tag
       run: |
