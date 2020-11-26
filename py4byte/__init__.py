@@ -1,5 +1,5 @@
 from .api import signatures
-from .meta import __version__, __author__, __email__
+from .meta import __version__, __author__, __email__  # noqa: F401
 
 
 def receipt_events(receipt):

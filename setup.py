@@ -16,6 +16,7 @@ def requirements_to_list(filename):
         dep and not dep.startswith('#')
     )]
 
+
 setup(
     name='py4byte',
     version=metadata['version'],
